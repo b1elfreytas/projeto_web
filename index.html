@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Central de Chamados</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main class="container">
+
+        <header class="topo">
+
+            <div>
+                <span class="tag">SUPORTE • DASHBOARD</span>
+
+                <h1>Central de Chamados</h1>
+
+                <p>
+                    Acompanhe, organize e gerencie as solicitações de suporte.
+                </p>
+            </div>
+
+            <button
+                class="botao-principal"
+                onclick="document.getElementById('titulo').focus()">
+                + Novo chamado
+            </button>
+
+        </header>
+
+
+        <!-- INDICADORES -->
+
+        <section class="dashboard">
+
+            <div class="card card-total">
+
+                <div class="icone">#</div>
+
+                <div>
+                    <span>Total</span>
+                    <strong id="total">0</strong>
+                    <small>Chamados registrados</small>
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="icone azul">●</div>
+
+                <div>
+                    <span>Abertos</span>
+                    <strong id="abertos">0</strong>
+                    <small>Aguardando atendimento</small>
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="icone amarelo">●</div>
+
+                <div>
+                    <span>Em andamento</span>
+                    <strong id="andamento">0</strong>
+                    <small>Em atendimento</small>
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="icone verde">●</div>
+
+                <div>
+                    <span>Concluídos</span>
+                    <strong id="concluidos">0</strong>
+                    <small>Finalizados</small>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ÁREA PRINCIPAL -->
+
+        <section class="grid-principal">
+
+
+            <!-- CHAMADOS -->
+
+            <div class="painel chamados-painel">
+
+                <div class="painel-topo">
+
+                    <div>
+                        <span class="mini-titulo">GERENCIAMENTO</span>
+
+                        <h2>Chamados</h2>
+
+                        <p>
+                            Visualize e atualize as solicitações.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="controles">
+
+                    <div class="campo-busca">
+
+                        <span>⌕</span>
+
+                        <input
+                            type="text"
+                            id="busca"
+                            placeholder="Pesquisar chamado...">
+
+                    </div>
+
+
+                    <select id="filtroStatus">
+
+                        <option value="Todos">
+                            Todos os status
+                        </option>
+
+                        <option value="Aberto">
+                            Aberto
+                        </option>
+
+                        <option value="Em andamento">
+                            Em andamento
+                        </option>
+
+                        <option value="Concluído">
+                            Concluído
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div id="listaChamados"></div>
+
+            </div>
+
+
+            <!-- GRÁFICO -->
+
+            <div class="painel status-painel">
+
+                <div class="painel-topo">
+
+                    <div>
+                        <span class="mini-titulo">VISÃO GERAL</span>
+
+                        <h2>Status</h2>
+
+                        <p>
+                            Distribuição dos chamados.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="grafico-area">
+
+                    <div
+                        id="graficoPizza"
+                        class="grafico-pizza">
+
+                        <div class="grafico-centro">
+
+                            <strong id="graficoTotal">
+                                0
+                            </strong>
+
+                            <span>chamados</span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="legenda">
+
+                        <div>
+                            <span class="ponto ponto-aberto"></span>
+
+                            <span>Aberto</span>
+
+                            <strong id="legendaAbertos">
+                                0
+                            </strong>
+                        </div>
+
+
+                        <div>
+                            <span class="ponto ponto-andamento"></span>
+
+                            <span>Em andamento</span>
+
+                            <strong id="legendaAndamento">
+                                0
+                            </strong>
+                        </div>
+
+
+                        <div>
+                            <span class="ponto ponto-concluido"></span>
+
+                            <span>Concluído</span>
+
+                            <strong id="legendaConcluidos">
+                                0
+                            </strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- NOVO CHAMADO -->
+
+        <section class="painel formulario">
+
+            <div class="painel-topo">
+
+                <div>
+                    <span class="mini-titulo">NOVA SOLICITAÇÃO</span>
+
+                    <h2>Cadastrar chamado</h2>
+
+                    <p>
+                        Preencha os dados para registrar uma nova solicitação.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <form id="formChamado">
+
+                <div class="form-grid">
+
+
+                    <div class="campo">
+
+                        <label for="titulo">
+                            Título
+                        </label>
+
+                        <input
+                            type="text"
+                            id="titulo"
+                            placeholder="Ex.: Computador não liga">
+
+                    </div>
+
+
+                    <div class="campo">
+
+                        <label for="solicitante">
+                            Solicitante
+                        </label>
+
+                        <input
+                            type="text"
+                            id="solicitante"
+                            placeholder="Nome do solicitante">
+
+                    </div>
+
+
+                    <div class="campo">
+
+                        <label for="categoria">
+                            Categoria
+                        </label>
+
+                        <select id="categoria">
+
+                            <option value="">
+                                Selecione
+                            </option>
+
+                            <option value="Computador">
+                                Computador
+                            </option>
+
+                            <option value="Sistema">
+                                Sistema
+                            </option>
+
+                            <option value="Internet">
+                                Internet
+                            </option>
+
+                            <option value="Outro">
+                                Outro
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="campo">
+
+                        <label for="prioridade">
+                            Prioridade
+                        </label>
+
+                        <select id="prioridade">
+
+                            <option value="">
+                                Selecione
+                            </option>
+
+                            <option value="Baixa">
+                                Baixa
+                            </option>
+
+                            <option value="Média">
+                                Média
+                            </option>
+
+                            <option value="Alta">
+                                Alta
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="campo campo-grande">
+
+                        <label for="descricao">
+                            Descrição
+                        </label>
+
+                        <textarea
+                            id="descricao"
+                            placeholder="Descreva o problema ou solicitação..."></textarea>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-footer">
+
+                    <p id="erro"></p>
+
+                    <button
+                        type="submit"
+                        class="botao-principal">
+
+                        Cadastrar chamado
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+
+        <footer>
+            Central de Chamados • Projeto de Programação Web
+        </footer>
+
+    </main>
+
+
+    <!-- MODAL -->
+
+    <div id="modal" class="modal">
+
+        <div class="modal-conteudo">
+
+            <button
+                id="fecharModal"
+                class="fechar">
+
+                ×
+
+            </button>
+
+            <div id="detalhes"></div>
+
+        </div>
+
+    </div>
+
+
+    <script src="app.js"></script>
+
+</body>
+
+</html>
